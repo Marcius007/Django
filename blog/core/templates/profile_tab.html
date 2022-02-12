@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'nav_bar.html' %}
+<h4> Profile Tab </h4>
+{% if user.is_authenticated  %}
+
+<div>
+    <a href="{% url 'create' %}" class="btn btn-success" style="float: right;">+Add new profile</a>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Picture</th>
+        <th scope="col">Phone nr</th>
+        <th scope="col">Email</th>
+        <th scope="col">Created On</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for object in obj %}
+    <tr>
+            <td scope="row">{{object.id}}</td>
+            <td>{{object.name}}</td>
+            <td><img src=" {{object.user_picture.url}}" width="100" height="100"></td>
+            <td>{{object.email}}</td>
+            <td>{{object.phone_number}}</td>
+            <td>{{object.pub_date}}</td>
+            <td>
+                <a href="/update/{{object.id}}" class="btn btn-warning">Update</a>
+                <a href="/delete/{{object.id}}" class="btn btn-danger">Delete</a>
+            </td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+{% else %}
+<h5> You do not have permissions!</h5>
+{% endif %}
+{% endblock %}
