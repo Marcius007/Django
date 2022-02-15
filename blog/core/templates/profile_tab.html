@@ -13,29 +13,58 @@
         <th scope="col">ID</th>
         <th scope="col">Name</th>
         <th scope="col">Picture</th>
-        <th scope="col">Phone nr</th>
         <th scope="col">Email</th>
+        <th scope="col">Phone</th>
         <th scope="col">Created On</th>
         <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
-    {% for object in obj %}
-    <tr>
-            <td scope="row">{{object.id}}</td>
-            <td>{{object.name}}</td>
-            <td><img src=" {{object.user_picture.url}}" width="100" height="100"></td>
-            <td>{{object.email}}</td>
-            <td>{{object.phone_number}}</td>
-            <td>{{object.pub_date}}</td>
-            <td>
-                <a href="/update/{{object.id}}" class="btn btn-warning">Update</a>
-                <a href="/delete/{{object.id}}" class="btn btn-danger">Delete</a>
-            </td>
-        {% endfor %}
-    </tr>
+        {% if object_list %}
+            {% for object in object_list %}
+            <tr>
+                    <td scope="row">{{object.id}}</td>
+                    <td>{{object.name}}</td>
+                    <td><img src=" {{object.user_picture.url}}" width="100" height="100"></td>
+                    <td>{{object.ACTION}}</td>
+                    <td>{{object.phone_number}}</td>
+                    <td>{{object.pub_date}}</td>
+                    <td>
+                        <a href="/update/{{object.id}}" class="btn btn-warning">Update</a>
+                        <a href="/delete/{{object.id}}" class="btn btn-danger">Delete</a>
+                    </td>
+
+                {% endfor %}
+        {% else %}
+        </tr>
     </tbody>
 </table>
+            <h4 style="text-align: center;">
+                <strong>No data Found</strong>
+            </h4>
+
+        {% endif %}
+
+
+<div class="clearfix">
+    <div class="hint-text">Showing <b>{{page_obj.object_list.count}}</b> out of <b>{{page_obj.paginator.count}}</b> entries</div>
+    {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item disabled"><a href="?page={{page_obj.previous_page_number}}">Previous</a></li>
+            {% endif %}
+            <li class="page-item"><a href="#" class="page-link">{{page_obj.number}}</a></li>
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="page-item"><a href="#" class="page-link">{{i}}</a></li>
+            {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item"><a href="?page={{page_obj.next_page_number}}" class="page-link">Next</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</div>
 {% else %}
 <h5> You do not have permissions!</h5>
 {% endif %}

@@ -3,13 +3,14 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import RegisterForm, CreateProfileForm
-from .models import Profile
+from .models import Profile, Post
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DeleteView, CreateView, UpdateView
 
 
 class ProfileList(ListView):
     model = Profile
+    paginate_by = 3
     template_name = 'profile_tab.html'
 
 
@@ -34,9 +35,9 @@ class ProfileDeleteView(DeleteView):
     success_url = '/profile'
 
 
-@login_required(login_url='log_in')
-def home(request):
-    return render(request, 'index.html')
+class PostList(ListView):
+    model = Post
+    template_name = 'post.html'
 
 
 @login_required(login_url='log_in')
@@ -80,3 +81,6 @@ def log_in(request):
         else:
             return HttpResponse("Please try again!")
     return render(request, 'log_in.html', {})
+
+
+
