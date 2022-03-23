@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,10 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+MESSAGE_TAGS = {
+    messages.INFO: 'danger',
+    messages.ERROR: 'danger'
+}
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,8 +45,16 @@ INSTALLED_APPS = [
     'core',
     'crispy_forms',
     'phonenumber_field',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#  cia jazzmin builderis
+JAZZMIN_SETTINGS = {
+    'show_ui_builder': True,
+}
+#  cia costum admin nustatymai
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,7 +93,7 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pythonremotelt7',
+        'NAME': 'django_postgresql',
         'USER': 'postgres',
         'PASSWORD': 'test',
         'HOST': 'localhost',
@@ -107,17 +120,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#persirasom user modeli
+AUTH_USER_MODEL = 'core.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Vilnius'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

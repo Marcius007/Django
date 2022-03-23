@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-
+{% for message in messages %}
+{{message}}
+{% endfor %}
 <form method="post" class="form-signin">
   {% csrf_token %}
   <img class="mb-4" src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-solid.svg

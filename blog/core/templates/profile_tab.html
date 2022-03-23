@@ -26,7 +26,7 @@
                     <td scope="row">{{object.id}}</td>
                     <td>{{object.name}}</td>
                     <td><img src=" {{object.user_picture.url}}" width="100" height="100"></td>
-                    <td>{{object.ACTION}}</td>
+                    <td>{{object.email}}</td>
                     <td>{{object.phone_number}}</td>
                     <td>{{object.pub_date}}</td>
                     <td>
@@ -35,6 +35,9 @@
                     </td>
 
                 {% endfor %}
+            </tr>
+    </tbody>
+</table>
         {% else %}
         </tr>
     </tbody>

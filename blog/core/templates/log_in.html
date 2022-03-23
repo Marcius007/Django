@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% for message in messages %}
+{{message}}
+{% endfor %}
 <form action="{% url 'log_in' %}"  method="post" class="form-signin">
   {% csrf_token %}
   <img class="mb-4" src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-solid.svg
@@ -19,6 +21,7 @@
     </label>
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <a href="{% url 'register' %}">Register</a>
   <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
 </form>
 

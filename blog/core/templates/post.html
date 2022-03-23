@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'nav_bar.html' %}
+
+<h3>Post</h3>
+<div>
+    <a href="{% url 'create_post' %}">Create Post</a>
+
+</div>
+
+
+{% for object in object_list %}
+
+<div class="card" style="width: 18rem;">
+    {% if object.post_date|date:'H:i' == object.post_date.today|date:'H:i' %}
+        <label>{{object.post_label}}</label>
+    {% endif %}
+
+  {% if object.post_date|date:'H:i' >= object.post_date|date:'12:00' %}
+      <label>{{object.post_label}}</label>
+  {% endif %}
+
+    {% if object.post_date|date:'H:i' == object.post_date.now|date:'H:i' %}
+        <label>{{object.post_label}}</label>
+    {% endif %}
+
+  <img class="card-img-top" src="{{object.picture.url}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{object.title}}</h5>
+    <p class="card-text">{{object.post_msg}}</p>
+      {% for post_profile in object.name.all %}
+        <p>Author: {{post_profile}} </p>
+        {% endfor %}
+        <p>Realese date: {{object.post_date|date:"Y-m-d H:i:s"}}</p>
+
+        <a href="/post_content/{{object.id}}" class="btn btn-primary">Read more...</a>
+        <a href="/update_post/{{object.id}}">Update Post</a>
+  </div>
+</div>
+
+    {% endfor %}
+
+
+{% endblock %}
